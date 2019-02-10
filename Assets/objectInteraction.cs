@@ -8,6 +8,8 @@ public class objectInteraction : MonoBehaviour {
     public static Vector3 target;
     public GameObject currentSelected, previousSelected;
     public squirrelScript sq;
+    public gameController gameController;
+    public GameObject rabbitPrefab;
     
 
     // Use this for initialization
@@ -18,45 +20,60 @@ public class objectInteraction : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if (Input.GetMouseButtonDown(0)) { 
-            
-                
-               
-            
+        if (Input.GetMouseButtonDown(0)) {
 
-        Ray ray = cam.ViewportPointToRay(cam.ScreenToViewportPoint(Input.mousePosition));
-        RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, 1000))
-                if (hit.transform.tag == "Interactable")
-                {
-                    print(hit.transform.gameObject);
-                    if(currentSelected!=null)
-                    previousSelected = currentSelected;
 
-                    currentSelected = hit.transform.gameObject;
-                    print(currentSelected);
 
-                    if (previousSelected != null) {
-                        sq = previousSelected.GetComponent<squirrelScript>();
-                        sq.activated = false;
+
+            if (!gameController.unitSelected){
+                Ray ray = cam.ViewportPointToRay(cam.ScreenToViewportPoint(Input.mousePosition));
+                RaycastHit hit;
+                if (Physics.Raycast(ray, out hit, 1000))
+                    if (hit.transform.tag == "Interactable")
+                    {
+                        print(hit.transform.gameObject);
+                        if (currentSelected != null)
+                            previousSelected = currentSelected;
+
+                        currentSelected = hit.transform.gameObject;
+                        print(currentSelected);
+
+                        if (previousSelected != null) {
+                            sq = previousSelected.GetComponent<squirrelScript>();
+                            sq.activated = false;
+                        }
+
+
+                        hit.transform.gameObject.SendMessage("clicked");
+                    }
+                    else if (hit.transform.tag == "tree")
+                    {
+
+                        target = hit.transform.position;
+                        Debug.Log(target);
+
                     }
 
-                    
-                    hit.transform.gameObject.SendMessage("clicked");
-                }
-                else if(hit.transform.tag == "tree")
-                {
-                    
-                    target = hit.transform.position;
-                    Debug.Log(target);
-                    
-                }
+                    else if (hit.transform.tag == "generator")
+                    {
+                        target = new Vector3((hit.transform.position.x + Random.Range(-0.5f, 0.5f)), 1, (hit.transform.position.z - 1));
+                        Debug.Log(target);
+                    }
+            }
 
-            else if(hit.transform.tag == "generator")
-                {
-                    target = new Vector3((hit.transform.position.x+Random.Range(-0.5f,0.5f)),1,(hit.transform.position.z-1));
-                    Debug.Log(target);
-                }
+            else if (gameController.rabbitSelected)
+            {
+                Ray ray = cam.ViewportPointToRay(cam.ScreenToViewportPoint(Input.mousePosition));
+                RaycastHit hit;
+                if (Physics.Raycast(ray, out hit, 1000))
+                    if (hit.transform.tag == "tree")
+                    {
+                        Vector3 spawnPoint = new Vector3(hit.transform.position.x, hit.transform.position.y + 1f, hit.transform.position.z);
+                        Instantiate(rabbitPrefab, spawnPoint, Quaternion.identity);
+                       gameController.rabbitSelected = false;
+                        gameController.unitSelected = false;
+                    }
+            }
     }
 }
 

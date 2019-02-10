@@ -3693,6 +3693,9 @@ MonoBehaviour:
   currentSelected: {fileID: 0}
   previousSelected: {fileID: 0}
   sq: {fileID: 0}
+  gameController: {fileID: 1876061414}
+  rabbitPrefab: {fileID: 1390575693229284, guid: bf43d7e5a386c104f99d73729e8579ab,
+    type: 3}
 --- !u!1001 &542785385
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12984,6 +12987,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turnNumber: 0
   rabbitSelected: 0
+  unitSelected: 0
   deactivation: 0
   timeElapsed: 0
 --- !u!4 &1876061415
