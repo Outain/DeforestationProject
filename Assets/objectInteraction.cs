@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class objectInteraction : MonoBehaviour {
     public Camera cam;
@@ -10,16 +11,28 @@ public class objectInteraction : MonoBehaviour {
     public squirrelScript sq;
     public gameController gameController;
     public GameObject rabbitPrefab;
+    public GameObject pointer;
     
 
     // Use this for initialization
     void Start() {
-        
+        pointer.gameObject.SetActive(false);
         cam = GetComponent<Camera>();
     }
 
     // Update is called once per frame
     void Update() {
+        if (gameController.unitSelected)
+        {
+            pointer.gameObject.SetActive(true);
+            pointer.transform.position = Input.mousePosition;
+        }
+        else
+        {
+            pointer.gameObject.SetActive(false);
+        }
+
+
         if (Input.GetMouseButtonDown(0)) {
 
 
