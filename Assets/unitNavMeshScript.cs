@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class squirrelScript : MonoBehaviour {
+public class unitNavMeshScript : MonoBehaviour
+{
     public bool activated;
     public bool moving;
     public float moveSpeed;
@@ -11,31 +12,38 @@ public class squirrelScript : MonoBehaviour {
     public Renderer rend;
     public NavMeshAgent agent;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         rend = GetComponent<Renderer>();
         target = transform.position;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        if (activated){
-            target = new Vector3(objectInteraction.target.x, transform.position.y, objectInteraction.target.z);
-            transform.position = Vector3.MoveTowards(transform.position, target, moveSpeed*Time.deltaTime);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+        if (activated)
+        {
+            //target = new Vector3(objectInteraction.target.x, transform.position.y, objectInteraction.target.z);
+            target = objectInteraction.target;
+            //transform.position = Vector3.MoveTowards(transform.position, target, moveSpeed * Time.deltaTime);
+            agent.SetDestination(target);
         }
         else
         {
-            transform.position = Vector3.MoveTowards(transform.position, target, moveSpeed * Time.deltaTime);
+           // transform.position = Vector3.MoveTowards(transform.position, target, moveSpeed * Time.deltaTime);
         }
         if (!activated)
         {
             rend.material.color = Color.white;
         }
-	}
+    }
 
     public void clicked()
     {
-        if (!activated){
+        if (!activated)
+        {
             activated = true;
             objectInteraction.target = transform.position;
         }
@@ -43,5 +51,5 @@ public class squirrelScript : MonoBehaviour {
         Debug.Log(activated);
     }
 
-   
+
 }
