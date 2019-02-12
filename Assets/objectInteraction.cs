@@ -8,7 +8,7 @@ public class objectInteraction : MonoBehaviour {
     public bool clickedOnce;
     public static Vector3 target;
     public GameObject currentSelected, previousSelected;
-    public squirrelScript sq;
+    public playerController sq;
     public gameController gameController;
     public GameObject rabbitPrefab;
     public GameObject pointer;
@@ -52,7 +52,7 @@ public class objectInteraction : MonoBehaviour {
                         print(currentSelected);
 
                         if (previousSelected != null) {
-                            sq = previousSelected.GetComponent<squirrelScript>();
+                            sq = previousSelected.GetComponent<playerController>();
                             sq.activated = false;
                         }
 

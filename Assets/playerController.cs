@@ -14,7 +14,8 @@ public class playerController : MonoBehaviour
     {
         GameObject cmo = GameObject.FindWithTag("MainCamera");
         cam = cmo.GetComponent<Camera>();
-        rend = GetComponent<Renderer>();
+        print(cam);
+        rend = GetComponentInChildren<Renderer>();
     }
 
     // Update is called once per frame
@@ -29,7 +30,10 @@ public class playerController : MonoBehaviour
 
                 if (Physics.Raycast(ray, out hit))
                 {
-                    agent.SetDestination(hit.point);
+                    if (hit.transform.tag != "Interactable")
+                    {
+                        agent.SetDestination(hit.point);
+                    }
                 }
             }
         }

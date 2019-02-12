@@ -5,12 +5,14 @@ using UnityEngine;
 public class enemyBehaviour : MonoBehaviour {
     public int behaviourState;
     public float speed;
+    public float rotationSpeed = 360f;
     public float loggingSpeed = 5;
     public Transform target;
     public GameObject currentTree,generator;
     public generatorScript gs;
     public treeScript ts;
     public Rigidbody rb;
+    public int pointsLostPerTree = 5;
 
     //behaviour state numbers
     //0 is for searching initial tree and reset after tree is destroyed
@@ -41,6 +43,17 @@ public class enemyBehaviour : MonoBehaviour {
             {
                 Vector3 direction = (target.position - transform.position).normalized;
                 rb.MovePosition(transform.position + direction * speed * Time.deltaTime);
+
+                // Vector3 targetDir = target.position - transform.position;
+
+                // The step size is equal to speed times frame time.
+                Quaternion rot = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), rotationSpeed * Time.deltaTime);
+
+                //Apply the rotation 
+                transform.rotation = rot;
+
+                // put 0 on the axys you do not want for the rotation object to rotate
+                transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
             }
         }
 
@@ -50,7 +63,8 @@ public class enemyBehaviour : MonoBehaviour {
             if(ts.isAlive == false)
             {
                 currentTree.tag = "Untagged";
-                Destroy(currentTree); ;
+                Destroy(currentTree);
+                gameController.forestPower -= pointsLostPerTree;
                 target = FindTarget();
                 behaviourState = 0;
             }

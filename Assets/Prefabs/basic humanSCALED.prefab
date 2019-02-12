@@ -11,9 +11,6 @@ GameObject:
   - component: {fileID: 5742210149544163130}
   - component: {fileID: 8612893199063238194}
   - component: {fileID: 1016641521555894733}
-  - component: {fileID: 615352385180672592}
-  - component: {fileID: 1723340693006315029}
-  - component: {fileID: 6273018004707901213}
   m_Layer: 0
   m_Name: basic humanSCALED
   m_TagString: human
@@ -80,53 +77,3 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &615352385180672592
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 737496478781389997}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77a426f993f6b2f43a6c770a5a29bf63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  behaviourState: 0
-  speed: 5
-  loggingSpeed: 20
-  target: {fileID: 0}
-  currentTree: {fileID: 0}
-  generator: {fileID: 0}
-  gs: {fileID: 0}
-  ts: {fileID: 0}
-  rb: {fileID: 0}
---- !u!54 &1723340693006315029
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 737496478781389997}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 84
-  m_CollisionDetection: 0
---- !u!65 &6273018004707901213
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 737496478781389997}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 24.112827, y: 11.481397, z: 76.34443}
-  m_Center: {x: 0, y: -0.61509264, z: -10.475917}

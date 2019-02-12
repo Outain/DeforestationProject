@@ -29,6 +29,7 @@ public class generatorScript : MonoBehaviour {
             health = 0;
             slidey.gameObject.SetActive(false);
             nearestHuman = FindHuman();
+            print(nearestHuman);
             eb = nearestHuman.GetComponent<enemyBehaviour>();
             eb.behaviourState = 2;
             eb.generator = this.gameObject;

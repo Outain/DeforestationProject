@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class gameController : MonoBehaviour {
     public int turnNumber;
@@ -8,14 +9,17 @@ public class gameController : MonoBehaviour {
     public bool rabbitSelected;
     public bool unitSelected;
     public static int score;
+    public static int forestPower;
     private float scoreIncrementer;
     public bool deactivation;
     public float timeElapsed;
+    public Slider slidey;
 
     public static int generatorBonus=200;
 
 	// Use this for initialization
 	void Start () {
+        forestPower = 100;
         unitSelected = false;
         score = 0;
         timeElapsed = 0;
@@ -25,6 +29,7 @@ public class gameController : MonoBehaviour {
 	void Update () {
         timeElapsed += Time.deltaTime;
         scoreIncrementer += Time.deltaTime;
+        slidey.value = forestPower;
         if (scoreIncrementer >= 10)
         {
             score += 100;
