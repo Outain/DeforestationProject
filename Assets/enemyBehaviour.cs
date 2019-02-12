@@ -27,7 +27,10 @@ public class enemyBehaviour : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if(target == null)
+        {
+            target = FindTarget();
+        }
 	}
 
     private void FixedUpdate()
@@ -74,6 +77,7 @@ public class enemyBehaviour : MonoBehaviour {
             gs.Repair();
             if(gs.brokenDown == false)
             {
+                
                 behaviourState = 0;
             }
         }

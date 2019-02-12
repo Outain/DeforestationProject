@@ -13,6 +13,8 @@ public class humanSpawner : MonoBehaviour
     void Start()
     {
         spawnTimer = 0;
+        GameObject homeboy = Instantiate(human, transform.position, Quaternion.identity);
+        homeboy.transform.localEulerAngles = new Vector3(-90, 0, 0);
     }
 
     // Update is called once per frame
@@ -21,7 +23,8 @@ public class humanSpawner : MonoBehaviour
         spawnTimer += Time.deltaTime;
         if (spawnTimer >= spawnRate)
         {
-            Instantiate(human, transform.position, Quaternion.identity);
+           GameObject homeboy = Instantiate(human, transform.position, Quaternion.identity);
+            homeboy.transform.localEulerAngles = new Vector3(-90, 0, 0);
             spawnTimer = 0;
         }
     }
