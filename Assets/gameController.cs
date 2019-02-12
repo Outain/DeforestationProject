@@ -10,6 +10,7 @@ public class gameController : MonoBehaviour {
     public bool unitSelected;
     public static int score;
     public static int forestPower;
+    public static bool hunterActivated;
     private float scoreIncrementer;
     public bool deactivation;
     public float timeElapsed;
@@ -19,6 +20,7 @@ public class gameController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        hunterActivated = false;
         forestPower = 100;
         unitSelected = false;
         score = 0;

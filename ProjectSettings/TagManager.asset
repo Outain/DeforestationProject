@@ -9,6 +9,7 @@ TagManager:
   - generator
   - human
   - ground
+  - cabin
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - 
   - PostProcessing
   - Unit
-  - 
+  - Human
   - 
   - 
   - 

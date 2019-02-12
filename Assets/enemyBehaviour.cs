@@ -7,7 +7,7 @@ public class enemyBehaviour : MonoBehaviour {
     public float speed;
     public float rotationSpeed = 360f;
     public float loggingSpeed = 5;
-    public Transform target;
+    public Transform target, fleeTarget;
     public GameObject currentTree,generator;
     public generatorScript gs;
     public treeScript ts;
@@ -22,6 +22,8 @@ public class enemyBehaviour : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        GameObject go = GameObject.FindWithTag("cabin");
+        fleeTarget = go.transform;
         rb = GetComponent<Rigidbody>();
         target = FindTarget();
         behaviourState = 0;
@@ -57,7 +59,7 @@ public class enemyBehaviour : MonoBehaviour {
             }
         }
 
-        if(behaviourState == 1)
+        if(behaviourState == 1&&!gameController.hunterActivated)
         {
             ts.health -= loggingSpeed * Time.deltaTime;
             if(ts.isAlive == false)
@@ -95,6 +97,31 @@ public class enemyBehaviour : MonoBehaviour {
                 behaviourState = 0;
             }
         }
+
+        if(behaviourState == 4)
+        {
+            Vector3 direction = (fleeTarget.position - transform.position).normalized;
+            rb.MovePosition(transform.position + direction * speed * Time.deltaTime);
+
+            // Vector3 targetDir = target.position - transform.position;
+
+            // The step size is equal to speed times frame time.
+            Quaternion rot = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), rotationSpeed * Time.deltaTime);
+
+            //Apply the rotation 
+            transform.rotation = rot;
+
+            // put 0 on the axys you do not want for the rotation object to rotate
+            transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+        }
+
+
+    }
+
+    public void Lockdown()
+    {
+        behaviourState = 4;
+        
     }
 
     private void OnCollisionEnter(Collision collision)

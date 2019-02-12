@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3179117221887204413}
   - component: {fileID: 3179117221887204410}
   - component: {fileID: 3179117221887204385}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Human
   m_TagString: human
   m_Icon: {fileID: 0}
@@ -108,10 +108,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   behaviourState: 0
-  speed: 5
+  speed: 2
   rotationSpeed: 360
   loggingSpeed: 20
   target: {fileID: 0}
+  fleeTarget: {fileID: 0}
   currentTree: {fileID: 0}
   generator: {fileID: 0}
   gs: {fileID: 0}
@@ -150,6 +151,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 737496478781389997, guid: d735b3c2208421245b0c11ec0440925d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5742210149544163130, guid: d735b3c2208421245b0c11ec0440925d,
         type: 3}
