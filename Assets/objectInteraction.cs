@@ -10,7 +10,7 @@ public class objectInteraction : MonoBehaviour {
     public GameObject currentSelected, previousSelected;
     public playerController sq;
     public gameController gameController;
-    public GameObject rabbitPrefab;
+    public GameObject rabbitPrefab,bearPrefab;
     public GameObject pointer;
     
 
@@ -85,6 +85,21 @@ public class objectInteraction : MonoBehaviour {
                         Vector3 spawnPoint = hit.point;
                         Instantiate(rabbitPrefab, spawnPoint, Quaternion.identity);
                        gameController.rabbitSelected = false;
+                        gameController.unitSelected = false;
+                    }
+            }
+
+            else if (gameController.bearSelected)
+            {
+                Ray ray = cam.ViewportPointToRay(cam.ScreenToViewportPoint(Input.mousePosition));
+                RaycastHit hit;
+                if (Physics.Raycast(ray, out hit, 1000))
+                    if (hit.transform.tag == "ground")
+                    {
+                        //Vector3 spawnPoint = new Vector3(hit.transform.position.x, hit.transform.position.y + 1f, hit.transform.position.z);
+                        Vector3 spawnPoint = hit.point;
+                        Instantiate(bearPrefab, spawnPoint, Quaternion.identity);
+                        gameController.bearSelected = false;
                         gameController.unitSelected = false;
                     }
             }

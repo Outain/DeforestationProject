@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class gameController : MonoBehaviour {
     public int turnNumber;
     public static bool playerTurn;
-    public bool rabbitSelected;
+    public bool rabbitSelected, bearSelected;
     public bool unitSelected;
     public static int score;
     public static int forestPower;
@@ -52,6 +52,17 @@ public class gameController : MonoBehaviour {
         {
             rabbitSelected = !rabbitSelected;
             unitSelected = rabbitSelected;
+            print("You clicked the button!");
+        }
+        GUI.color = Color.white;
+        if (bearSelected)
+        {
+            GUI.color = Color.yellow;
+        }
+        if (GUI.Button(new Rect(10, 80, 100, 20), "new bear"))
+        {
+            bearSelected = !bearSelected;
+            unitSelected = bearSelected;
             print("You clicked the button!");
         }
     }
