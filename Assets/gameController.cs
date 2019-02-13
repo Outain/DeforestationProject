@@ -7,7 +7,7 @@ public class gameController : MonoBehaviour {
     public int turnNumber;
     public static bool playerTurn;
     public bool rabbitSelected, bearSelected;
-    public bool unitSelected;
+    public static bool unitSelected;
     public static int score;
     public static int forestPower;
     public static bool hunterActivated;

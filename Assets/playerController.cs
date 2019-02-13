@@ -30,7 +30,7 @@ public class playerController : MonoBehaviour
 
                 if (Physics.Raycast(ray, out hit))
                 {
-                    if (hit.transform.tag != "Interactable")
+                    if (hit.transform.tag != "Interactable"&&!gameController.unitSelected)
                     {
                         agent.SetDestination(hit.point);
                     }
