@@ -13,13 +13,14 @@ public class hunterScript : MonoBehaviour
     public float shootingRange;
     public float aimCountDown;
     private float aimCountDownInitial;
-    private Transform initialTransform;
+    private Vector3 initialTransform;
     private float dist;
     // Start is called before the first frame update
     void Start()
     {
         hunterState = 0;
-        initialTransform = transform;
+        initialTransform = transform.position;
+        print(initialTransform);
         aimCountDownInitial = aimCountDown;
        
     }
@@ -33,7 +34,7 @@ public class hunterScript : MonoBehaviour
         }
         if (hunterState == 0)
         {
-            agent.SetDestination(initialTransform.position);
+            agent.SetDestination(initialTransform);
         }
         if (hunterState ==1 && bear!=null)
         {
