@@ -13,6 +13,8 @@ public class enemyBehaviour : MonoBehaviour {
     public treeScript ts;
     public Rigidbody rb;
     public int pointsLostPerTree = 5;
+    public float scaredyTime =5 ;
+    private float scareTimeInitial;
 
     //behaviour state numbers
     //0 is for searching initial tree and reset after tree is destroyed
@@ -20,13 +22,15 @@ public class enemyBehaviour : MonoBehaviour {
     //2 is for finding generator
     //3 is for repairing generator;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
+        scareTimeInitial = scaredyTime;
         GameObject go = GameObject.FindWithTag("cabin");
         fleeTarget = go.transform;
         rb = GetComponent<Rigidbody>();
         target = FindTarget();
         behaviourState = 0;
+       
 	}
 	
 	// Update is called once per frame
@@ -100,6 +104,12 @@ public class enemyBehaviour : MonoBehaviour {
 
         if(behaviourState == 4)
         {
+            scaredyTime -= Time.deltaTime;
+            if(scaredyTime <= 0)
+            {
+                scaredyTime = scareTimeInitial;
+                behaviourState = 0;
+            }
             Vector3 direction = (fleeTarget.position - transform.position).normalized;
             rb.MovePosition(transform.position + direction * speed * Time.deltaTime);
 

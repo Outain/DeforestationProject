@@ -117,7 +117,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: b6c6f4e1dcbd60c47914819a331d56f0, type: 3}
       propertyPath: m_Name
-      value: Bear
+      value: BearModel
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: b6c6f4e1dcbd60c47914819a331d56f0, type: 3}
       propertyPath: m_LocalPosition.x

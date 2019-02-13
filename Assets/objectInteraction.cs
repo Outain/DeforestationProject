@@ -98,9 +98,11 @@ public class objectInteraction : MonoBehaviour {
                     {
                         //Vector3 spawnPoint = new Vector3(hit.transform.position.x, hit.transform.position.y + 1f, hit.transform.position.z);
                         Vector3 spawnPoint = hit.point;
-                        Instantiate(bearPrefab, spawnPoint, Quaternion.identity);
+                        GameObject bearBoy = Instantiate(bearPrefab, spawnPoint, Quaternion.identity);
+                       
                         gameController.bearSelected = false;
                         gameController.unitSelected = false;
+                        hunterScript.bear = bearBoy;
                     }
             }
     }

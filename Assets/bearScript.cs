@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class bearScript : MonoBehaviour
 {
-
+    public Transform bearSpot;
     public float sphereRadius;
     // Start is called before the first frame update
     void Start()
@@ -20,6 +20,8 @@ public class bearScript : MonoBehaviour
         int i = 0;
         while (i < hitColliders.Length&&hitColliders.Length>0)
         {
+            hunterScript.hunterState = 1;
+            print(hunterScript.hunterState);
             hitColliders[i].SendMessage("Lockdown");
             i++;
         }
@@ -30,6 +32,7 @@ public class bearScript : MonoBehaviour
         if(other.gameObject.tag == "human")
         {
             other.gameObject.SendMessage("Lockdown");
+            
             print("lockdown");
             gameController.hunterActivated = true;
         }

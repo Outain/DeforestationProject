@@ -15,6 +15,7 @@ public class gameController : MonoBehaviour {
     public bool deactivation;
     public float timeElapsed;
     public Slider slidey;
+    
 
     public static int generatorBonus=200;
 
