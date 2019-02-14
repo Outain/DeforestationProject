@@ -22,6 +22,11 @@ public class objectInteraction : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
+        if (gameController.gameOver)
+        {
+            this.enabled = false;
+        }
+
         if (gameController.unitSelected)
         {
             pointer.gameObject.SetActive(true);

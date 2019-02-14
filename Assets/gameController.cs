@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class gameController : MonoBehaviour {
     public int turnNumber;
@@ -18,6 +19,9 @@ public class gameController : MonoBehaviour {
     public static float resources;
     public float resourceGainRate;
     public float costPerRabbit, costPerBear;
+    public bool gameOver = false;
+    public GameObject gameOverText;
+    public Text gameOverScore;
 
     public static int generatorBonus=200;
 
@@ -33,8 +37,11 @@ public class gameController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        timeElapsed += Time.deltaTime;
-        scoreIncrementer += Time.deltaTime;
+        if (!gameOver)
+        {
+            timeElapsed += Time.deltaTime;
+            scoreIncrementer += Time.deltaTime;
+        }
         resources += resourceGainRate;
         slidey.value = forestPower;
         resourceSlider.value = resources;
@@ -44,33 +51,53 @@ public class gameController : MonoBehaviour {
             score += 100;
             scoreIncrementer = 0;
         }
+
+        if(forestPower <= 0)
+        {
+            gameOver = true;
+            gameOverText.SetActive(true);
+            gameOverScore.text = ("Score: " + score);
+            slidey.gameObject.SetActive(false);
+            resourceSlider.gameObject.SetActive(false);
+        }
+
+        if (gameOver)
+        {
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                SceneManager.LoadScene("SampleScene");
+            }
+        }
 	}
 
      private void OnGUI()
     {
-        GUI.Label(new Rect(10, 10, 100, 20), "Time: " + Mathf.RoundToInt(timeElapsed));
-        GUI.Label(new Rect(10, 40, 100, 20), "Score: " + score);
+        if (!gameOver)
+        {
+            GUI.Label(new Rect(10, 10, 100, 20), "Time: " + Mathf.RoundToInt(timeElapsed));
+            GUI.Label(new Rect(10, 40, 100, 20), "Score: " + score);
 
-        if (rabbitSelected)
-        {
-            GUI.color = Color.yellow;
-        }
-        if (GUI.Button(new Rect(10, 60, 100, 20), "new rabbit"))
-        {
-            rabbitSelected = !rabbitSelected;
-            unitSelected = rabbitSelected;
-            print("You clicked the button!");
-        }
-        GUI.color = Color.white;
-        if (bearSelected)
-        {
-            GUI.color = Color.yellow;
-        }
-        if (GUI.Button(new Rect(10, 80, 100, 20), "new bear"))
-        {
-            bearSelected = !bearSelected;
-            unitSelected = bearSelected;
-            print("You clicked the button!");
+            if (rabbitSelected)
+            {
+                GUI.color = Color.yellow;
+            }
+            if (GUI.Button(new Rect(10, 60, 100, 20), "new rabbit"))
+            {
+                rabbitSelected = !rabbitSelected;
+                unitSelected = rabbitSelected;
+                print("You clicked the button!");
+            }
+            GUI.color = Color.white;
+            if (bearSelected)
+            {
+                GUI.color = Color.yellow;
+            }
+            if (GUI.Button(new Rect(10, 80, 100, 20), "new bear"))
+            {
+                bearSelected = !bearSelected;
+                unitSelected = bearSelected;
+                print("You clicked the button!");
+            }
         }
     }
 }

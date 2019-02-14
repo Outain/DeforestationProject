@@ -118,7 +118,7 @@ MonoBehaviour:
   gs: {fileID: 0}
   ts: {fileID: 0}
   rb: {fileID: 0}
-  pointsLostPerTree: 1
+  pointsLostPerTree: 2
   scaredyTime: 5
   agent: {fileID: 0}
   scared: 0
