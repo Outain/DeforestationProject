@@ -21,6 +21,10 @@ public class squirrelAttack : MonoBehaviour {
         {
             //Debug.Log("attacking");
             other.gameObject.SendMessage("Breakdown");
+            if (other.gameObject.GetComponent<generatorScript>().brokenDown)
+            {
+                Destroy(this.gameObject);
+            }
         }
     }
 }

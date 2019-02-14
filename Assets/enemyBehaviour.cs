@@ -81,7 +81,7 @@ public class enemyBehaviour : MonoBehaviour {
                 gameController.forestPower -= pointsLostPerTree;
                 target = FindTarget();
                 behaviourState = 0;
-                navMeshBaker.timeToBake = true;
+                navMeshBaker.bakeNumber++;
             }
         }
 

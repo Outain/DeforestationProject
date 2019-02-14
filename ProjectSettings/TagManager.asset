@@ -11,6 +11,7 @@ TagManager:
   - ground
   - cabin
   - treetochop
+  - spawnarea
   layers:
   - Default
   - TransparentFX

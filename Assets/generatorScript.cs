@@ -11,6 +11,7 @@ public class generatorScript : MonoBehaviour {
     public float breakdownRate,repairRate;
     public GameObject nearestHuman;
     public enemyBehaviour eb;
+   
     //public GameObject sliderPrefab;
 
 	// Use this for initialization

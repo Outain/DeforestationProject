@@ -12,10 +12,12 @@ public class objectInteraction : MonoBehaviour {
     public gameController gameController;
     public GameObject rabbitPrefab,bearPrefab;
     public GameObject pointer;
-    
+    public Renderer spawnRenderer;
+    public Color originalSpawnColour;
 
     // Use this for initialization
     void Start() {
+        originalSpawnColour = spawnRenderer.material.color;
         pointer.gameObject.SetActive(false);
         cam = GetComponent<Camera>();
     }
@@ -31,10 +33,12 @@ public class objectInteraction : MonoBehaviour {
         {
             pointer.gameObject.SetActive(true);
             pointer.transform.position = Input.mousePosition;
+            spawnRenderer.material.color = Color.yellow;
         }
         else
         {
             pointer.gameObject.SetActive(false);
+            spawnRenderer.material.color = originalSpawnColour;
         }
 
 
@@ -84,7 +88,7 @@ public class objectInteraction : MonoBehaviour {
                 Ray ray = cam.ViewportPointToRay(cam.ScreenToViewportPoint(Input.mousePosition));
                 RaycastHit hit;
                 if (Physics.Raycast(ray, out hit, 1000))
-                    if (hit.transform.tag == "ground")
+                    if (hit.transform.tag == "spawnarea")
                     {
                         if (gameController.costPerRabbit <= gameController.resources)
                         {
@@ -103,7 +107,7 @@ public class objectInteraction : MonoBehaviour {
                 Ray ray = cam.ViewportPointToRay(cam.ScreenToViewportPoint(Input.mousePosition));
                 RaycastHit hit;
                 if (Physics.Raycast(ray, out hit, 1000))
-                    if (hit.transform.tag == "ground")
+                    if (hit.transform.tag == "spawnarea")
                     {
                         if (gameController.costPerBear <= gameController.resources)
                         {

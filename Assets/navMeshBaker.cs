@@ -5,11 +5,14 @@ using UnityEngine.AI;
 
 public class navMeshBaker : MonoBehaviour
 {
-    public static bool timeToBake;
+    private bool timeToBake;
+    public static int bakeNumber;
+    public int bakeFrequency;
     public NavMeshSurface surface;
     // Start is called before the first frame update
     void Start()
     {
+        bakeNumber = 0;
         surface.BuildNavMesh();
         
     }
@@ -17,11 +20,16 @@ public class navMeshBaker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (bakeNumber >= bakeFrequency)
+        {
+            timeToBake = true;
+        }
         if (timeToBake)
         {
             surface.BuildNavMesh();
             print("cheech");
             timeToBake = false;
+            bakeNumber = 0;
         }
         
     }
