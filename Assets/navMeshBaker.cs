@@ -7,7 +7,7 @@ public class navMeshBaker : MonoBehaviour
 {
     private bool timeToBake;
     public static int bakeNumber;
-    public int bakeFrequency;
+    private int bakeFrequency;
     public NavMeshSurface surface;
     // Start is called before the first frame update
     void Start()
@@ -20,7 +20,8 @@ public class navMeshBaker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (bakeNumber >= bakeFrequency)
+        bakeFrequency = humanSpawner.numberOfHumans;
+        if (bakeNumber > bakeFrequency)
         {
             timeToBake = true;
         }
