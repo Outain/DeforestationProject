@@ -10,6 +10,7 @@ public class enemyBehaviour : MonoBehaviour {
     public float loggingSpeed = 5;
     public Transform target, fleeTarget;
     public GameObject currentTree,generator;
+    GameObject nearestTree;
     public generatorScript gs;
     public treeScript ts;
     public Rigidbody rb;
@@ -161,7 +162,7 @@ public class enemyBehaviour : MonoBehaviour {
     {
         rb.angularVelocity = Vector3.zero;
         rb.velocity = Vector3.zero;
-        if (collision.collider.CompareTag("tree")&&behaviourState ==0)
+        if (collision.collider.CompareTag("treetochop")&&behaviourState ==0)
         {
             behaviourState = 1;
             //collision.collider.gameObject.tag = "Untagged"; // Remove the tag so that FindTarget won't return it
@@ -189,6 +190,7 @@ public class enemyBehaviour : MonoBehaviour {
         GameObject[] candidates = GameObject.FindGameObjectsWithTag("tree");
         float minDistance = Mathf.Infinity;
         Transform closest;
+        
 
         if (candidates.Length == 0)
             return null;
@@ -202,7 +204,12 @@ public class enemyBehaviour : MonoBehaviour {
             {
                 closest = candidates[i].transform;
                 minDistance = distance;
+                nearestTree = candidates[i];
             }
+        }
+        if (nearestTree != null)
+        {
+            nearestTree.tag = "treetochop";
         }
         return closest;
     }
