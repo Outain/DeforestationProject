@@ -81,11 +81,15 @@ public class objectInteraction : MonoBehaviour {
                 if (Physics.Raycast(ray, out hit, 1000))
                     if (hit.transform.tag == "ground")
                     {
-                        //Vector3 spawnPoint = new Vector3(hit.transform.position.x, hit.transform.position.y + 1f, hit.transform.position.z);
-                        Vector3 spawnPoint = hit.point;
-                        Instantiate(rabbitPrefab, spawnPoint, Quaternion.identity);
-                       gameController.rabbitSelected = false;
-                        gameController.unitSelected = false;
+                        if (gameController.costPerRabbit <= gameController.resources)
+                        {
+                            //Vector3 spawnPoint = new Vector3(hit.transform.position.x, hit.transform.position.y + 1f, hit.transform.position.z);
+                            Vector3 spawnPoint = hit.point;
+                            Instantiate(rabbitPrefab, spawnPoint, Quaternion.identity);
+                            gameController.rabbitSelected = false;
+                            gameController.unitSelected = false;
+                            gameController.resources -= gameController.costPerRabbit;
+                        }
                     }
             }
 
@@ -96,13 +100,17 @@ public class objectInteraction : MonoBehaviour {
                 if (Physics.Raycast(ray, out hit, 1000))
                     if (hit.transform.tag == "ground")
                     {
-                        //Vector3 spawnPoint = new Vector3(hit.transform.position.x, hit.transform.position.y + 1f, hit.transform.position.z);
-                        Vector3 spawnPoint = hit.point;
-                        GameObject bearBoy = Instantiate(bearPrefab, spawnPoint, Quaternion.identity);
-                       
-                        gameController.bearSelected = false;
-                        gameController.unitSelected = false;
-                        hunterScript.bear = bearBoy;
+                        if (gameController.costPerBear <= gameController.resources)
+                        {
+                            //Vector3 spawnPoint = new Vector3(hit.transform.position.x, hit.transform.position.y + 1f, hit.transform.position.z);
+                            Vector3 spawnPoint = hit.point;
+                            GameObject bearBoy = Instantiate(bearPrefab, spawnPoint, Quaternion.identity);
+
+                            gameController.bearSelected = false;
+                            gameController.unitSelected = false;
+                            hunterScript.bear = bearBoy;
+                            gameController.resources -= gameController.costPerBear;
+                        }
                     }
             }
     }

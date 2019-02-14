@@ -14,13 +14,16 @@ public class gameController : MonoBehaviour {
     private float scoreIncrementer;
     public bool deactivation;
     public float timeElapsed;
-    public Slider slidey;
-    
+    public Slider slidey,resourceSlider;
+    public static float resources;
+    public float resourceGainRate;
+    public float costPerRabbit, costPerBear;
 
     public static int generatorBonus=200;
 
 	// Use this for initialization
 	void Start () {
+        resources = 10;
         hunterActivated = false;
         forestPower = 100;
         unitSelected = false;
@@ -32,9 +35,12 @@ public class gameController : MonoBehaviour {
 	void Update () {
         timeElapsed += Time.deltaTime;
         scoreIncrementer += Time.deltaTime;
+        resources += resourceGainRate;
         slidey.value = forestPower;
+        resourceSlider.value = resources;
         if (scoreIncrementer >= 10)
         {
+            
             score += 100;
             scoreIncrementer = 0;
         }
