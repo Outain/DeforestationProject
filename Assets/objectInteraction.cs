@@ -97,6 +97,7 @@ public class objectInteraction : MonoBehaviour {
                             Instantiate(rabbitPrefab, spawnPoint, Quaternion.identity);
                             gameController.rabbitSelected = false;
                             gameController.unitSelected = false;
+                            gameController.rabbitImage.sprite = gameController.rabbitNormal;
                             gameController.resources -= gameController.costPerRabbit;
                         }
                     }
@@ -118,6 +119,7 @@ public class objectInteraction : MonoBehaviour {
                             gameController.bearSelected = false;
                             gameController.unitSelected = false;
                             hunterScript.bear = bearBoy;
+                            gameController.bearImage.sprite = gameController.bearNormal;
                             gameController.resources -= gameController.costPerBear;
                         }
                     }

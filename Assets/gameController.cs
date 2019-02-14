@@ -22,6 +22,8 @@ public class gameController : MonoBehaviour {
     public bool gameOver = false;
     public GameObject gameOverText;
     public Text gameOverScore;
+    public Sprite rabbitNormal, rabbitHighlight, bearNormal, bearHighlight;
+    public Image rabbitImage, bearImage;
 
     public static int generatorBonus=200;
 
@@ -45,6 +47,10 @@ public class gameController : MonoBehaviour {
         resources += resourceGainRate;
         slidey.value = forestPower;
         resourceSlider.value = resources;
+        if (resources >= 100)
+        {
+            resources = 100;
+        }
         if (scoreIncrementer >= 10)
         {
             
@@ -77,27 +83,58 @@ public class gameController : MonoBehaviour {
             GUI.Label(new Rect(10, 10, 100, 20), "Time: " + Mathf.RoundToInt(timeElapsed));
             GUI.Label(new Rect(10, 40, 100, 20), "Score: " + score);
 
-            if (rabbitSelected)
-            {
-                GUI.color = Color.yellow;
-            }
-            if (GUI.Button(new Rect(10, 60, 100, 20), "new rabbit"))
-            {
-                rabbitSelected = !rabbitSelected;
-                unitSelected = rabbitSelected;
-                print("You clicked the button!");
-            }
-            GUI.color = Color.white;
-            if (bearSelected)
-            {
-                GUI.color = Color.yellow;
-            }
-            if (GUI.Button(new Rect(10, 80, 100, 20), "new bear"))
-            {
-                bearSelected = !bearSelected;
-                unitSelected = bearSelected;
-                print("You clicked the button!");
-            }
+            //if (rabbitSelected)
+            //{
+            //    GUI.color = Color.yellow;
+            //}
+            //if (GUI.Button(new Rect(10, 60, 100, 20), "new rabbit"))
+            //{
+            //    rabbitSelected = !rabbitSelected;
+            //    unitSelected = rabbitSelected;
+            //    print("You clicked the button!");
+            //}
+            //GUI.color = Color.white;
+            //if (bearSelected)
+            //{
+            //    GUI.color = Color.yellow;
+            //}
+            //if (GUI.Button(new Rect(10, 80, 100, 20), "new bear"))
+            //{
+            //    bearSelected = !bearSelected;
+            //    unitSelected = bearSelected;
+            //    print("You clicked the button!");
+            //}
+        }
+    }
+
+    public void SelectRabbit()
+    {
+        rabbitSelected = !rabbitSelected;
+        unitSelected = rabbitSelected;
+        //print("You clicked the button!");
+        if (rabbitSelected)
+        {
+            rabbitImage.sprite = rabbitHighlight;
+
+        }
+        else
+        {
+            rabbitImage.sprite = rabbitNormal;
+        }
+    }
+
+    public void SelectBear()
+    {
+        bearSelected = !bearSelected;
+        unitSelected = bearSelected;
+
+        if (bearSelected)
+        {
+            bearImage.sprite = bearHighlight;
+        }
+        else
+        {
+            bearImage.sprite = bearNormal;
         }
     }
 }
