@@ -15,6 +15,7 @@ public class hunterScript : MonoBehaviour
     private float aimCountDownInitial;
     private Vector3 initialTransform;
     private float dist;
+   
     // Start is called before the first frame update
     void Start()
     {

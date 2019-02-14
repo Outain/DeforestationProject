@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class enemyBehaviour : MonoBehaviour {
     public int behaviourState;
@@ -15,6 +16,10 @@ public class enemyBehaviour : MonoBehaviour {
     public int pointsLostPerTree = 5;
     public float scaredyTime =5 ;
     private float scareTimeInitial;
+    public NavMeshAgent agent;
+    private int previousBehaviourInt;
+    private Vector3 previousPos;
+    public bool scared = false;
 
     //behaviour state numbers
     //0 is for searching initial tree and reset after tree is destroyed
@@ -24,6 +29,7 @@ public class enemyBehaviour : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        agent = GetComponent<NavMeshAgent>();
         scareTimeInitial = scaredyTime;
         GameObject go = GameObject.FindWithTag("cabin");
         fleeTarget = go.transform;
@@ -47,23 +53,24 @@ public class enemyBehaviour : MonoBehaviour {
         {
             if (target != null)
             {
-                Vector3 direction = (target.position - transform.position).normalized;
-                rb.MovePosition(transform.position + direction * speed * Time.deltaTime);
+                //Vector3 direction = (target.position - transform.position).normalized;
+                //rb.MovePosition(transform.position + direction * speed * Time.deltaTime);
 
-                // Vector3 targetDir = target.position - transform.position;
+                //// Vector3 targetDir = target.position - transform.position;
 
-                // The step size is equal to speed times frame time.
-                Quaternion rot = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), rotationSpeed * Time.deltaTime);
+                //// The step size is equal to speed times frame time.
+                //Quaternion rot = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), rotationSpeed * Time.deltaTime);
 
-                //Apply the rotation 
-                transform.rotation = rot;
+                ////Apply the rotation 
+                //transform.rotation = rot;
 
-                // put 0 on the axys you do not want for the rotation object to rotate
-                transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+                //// put 0 on the axys you do not want for the rotation object to rotate
+                //transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+                agent.SetDestination(target.position);
             }
         }
 
-        if(behaviourState == 1&&!gameController.hunterActivated)
+        if(behaviourState == 1)
         {
             ts.health -= loggingSpeed * Time.deltaTime;
             if(ts.isAlive == false)
@@ -73,6 +80,7 @@ public class enemyBehaviour : MonoBehaviour {
                 gameController.forestPower -= pointsLostPerTree;
                 target = FindTarget();
                 behaviourState = 0;
+                navMeshBaker.timeToBake = true;
             }
         }
 
@@ -80,8 +88,9 @@ public class enemyBehaviour : MonoBehaviour {
         {
             if(generator != null)
             {
-                Vector3 direction = (generator.transform.position - transform.position).normalized;
-                rb.MovePosition(transform.position + direction * speed * Time.deltaTime);
+                //Vector3 direction = (generator.transform.position - transform.position).normalized;
+                //rb.MovePosition(transform.position + direction * speed * Time.deltaTime);
+                agent.SetDestination(generator.transform.position);
             }
 
             float distance = (generator.transform.position - transform.position).sqrMagnitude;
@@ -107,22 +116,26 @@ public class enemyBehaviour : MonoBehaviour {
             scaredyTime -= Time.deltaTime;
             if(scaredyTime <= 0)
             {
+                behaviourState = previousBehaviourInt;
+                agent.SetDestination(previousPos);
                 scaredyTime = scareTimeInitial;
-                behaviourState = 0;
+                scared = false;
+                
             }
-            Vector3 direction = (fleeTarget.position - transform.position).normalized;
-            rb.MovePosition(transform.position + direction * speed * Time.deltaTime);
+            //Vector3 direction = (fleeTarget.position - transform.position).normalized;
+            //rb.MovePosition(transform.position + direction * speed * Time.deltaTime);
 
-            // Vector3 targetDir = target.position - transform.position;
+            //// Vector3 targetDir = target.position - transform.position;
 
-            // The step size is equal to speed times frame time.
-            Quaternion rot = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), rotationSpeed * Time.deltaTime);
+            //// The step size is equal to speed times frame time.
+            //Quaternion rot = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), rotationSpeed * Time.deltaTime);
 
-            //Apply the rotation 
-            transform.rotation = rot;
+            ////Apply the rotation 
+            //transform.rotation = rot;
 
-            // put 0 on the axys you do not want for the rotation object to rotate
-            transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+            //// put 0 on the axys you do not want for the rotation object to rotate
+            //transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+            agent.SetDestination(fleeTarget.position);
         }
 
 
@@ -130,7 +143,17 @@ public class enemyBehaviour : MonoBehaviour {
 
     public void Lockdown()
     {
-        behaviourState = 4;
+        if (scared == false)
+        {
+            previousPos = agent.destination;
+            previousBehaviourInt = behaviourState;
+            if (previousBehaviourInt == 1 || previousBehaviourInt == 3)
+            {
+                previousBehaviourInt--; // this means if the lad is either in the middle of fixing a generator or chopping a treee theyll go back to seeking out what they had, so generators dont get left alone after a bear scare
+            }
+            behaviourState = 4;
+            scared = true;
+        }
         
     }
 
