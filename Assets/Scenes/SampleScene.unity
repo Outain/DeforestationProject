@@ -3647,7 +3647,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -107, y: 63}
+  m_AnchoredPosition: {x: -159.5, y: 151.7}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &479041531
@@ -3683,9 +3683,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'G a m e    O v e r
-
-    Press R to restart'
+  m_Text: "G a m e    O v e r\n    R to restart\n    Esc to quit"
 --- !u!222 &479041532
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -32,7 +32,7 @@ public class gameController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         bearInPlay = false;
-        resources = 50;
+        resources = 0;
         hunterActivated = false;
         forestPower = 100;
         unitSelected = false;
