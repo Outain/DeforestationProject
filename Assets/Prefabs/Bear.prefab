@@ -69,7 +69,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 637e84c2d79b2a04aab13841fd95c96b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bearSpot: {fileID: 0}
   sphereRadius: 5
+  maxSpeed: 4
+  minSpeed: 2
+  speedDecay: 0.03
+  agent: {fileID: 6057670759548984083}
 --- !u!195 &6057670759548984083
 NavMeshAgent:
   m_ObjectHideFlags: 0

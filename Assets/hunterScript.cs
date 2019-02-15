@@ -63,6 +63,7 @@ public class hunterScript : MonoBehaviour
                 anim.SetTrigger("fire");
                 print("fire!");
                 Destroy(bear);
+                gameController.bearInPlay = false;
                 anim.SetBool("aiming", false);
                 aimCountDown = aimCountDownInitial;
                 hunterState = 0;

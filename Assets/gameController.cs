@@ -25,11 +25,13 @@ public class gameController : MonoBehaviour {
     public Text resourceText,timeText,scoreText;
     public Sprite rabbitNormal, rabbitHighlight, bearNormal, bearHighlight;
     public Image rabbitImage, bearImage;
+    public static bool bearInPlay;
 
     public static int generatorBonus=200;
 
 	// Use this for initialization
 	void Start () {
+        bearInPlay = false;
         resources = 50;
         hunterActivated = false;
         forestPower = 100;
@@ -73,6 +75,11 @@ public class gameController : MonoBehaviour {
             if (Input.GetKeyDown(KeyCode.R))
             {
                 SceneManager.LoadScene("SampleScene");
+            }
+
+            if (Input.GetKey("escape"))
+            {
+                Application.Quit();
             }
         }
         resourceText.text = "Resources:" + " " + Mathf.RoundToInt(resources) + "%";
@@ -129,16 +136,19 @@ public class gameController : MonoBehaviour {
 
     public void SelectBear()
     {
-        bearSelected = !bearSelected;
-        unitSelected = bearSelected;
+        if (!bearInPlay)
+        {
+            bearSelected = !bearSelected;
+            unitSelected = bearSelected;
 
-        if (bearSelected)
-        {
-            bearImage.sprite = bearHighlight;
-        }
-        else
-        {
-            bearImage.sprite = bearNormal;
+            if (bearSelected)
+            {
+                bearImage.sprite = bearHighlight;
+            }
+            else
+            {
+                bearImage.sprite = bearNormal;
+            }
         }
     }
 }

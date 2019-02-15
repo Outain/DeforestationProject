@@ -10,11 +10,11 @@ public class bearScript : MonoBehaviour
     public float maxSpeed;
     public float minSpeed;
     public float speedDecay;
-     
+    public NavMeshAgent agent; 
     // Start is called before the first frame update
     void Start()
     {
-        
+        agent.speed = maxSpeed;
     }
 
     // Update is called once per frame
@@ -30,7 +30,10 @@ public class bearScript : MonoBehaviour
             hitColliders[i].SendMessage("Lockdown");
             i++;
         }
-
+        if(agent.speed >= minSpeed)
+        {
+            agent.speed -= speedDecay*Time.deltaTime;
+        }
 
     }
 

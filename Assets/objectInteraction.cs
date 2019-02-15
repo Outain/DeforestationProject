@@ -121,6 +121,7 @@ public class objectInteraction : MonoBehaviour {
                             hunterScript.bear = bearBoy;
                             gameController.bearImage.sprite = gameController.bearNormal;
                             gameController.resources -= gameController.costPerBear;
+                            gameController.bearInPlay = true;
                         }
                     }
             }
