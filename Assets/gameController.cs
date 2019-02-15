@@ -22,6 +22,7 @@ public class gameController : MonoBehaviour {
     public bool gameOver = false;
     public GameObject gameOverText;
     public Text gameOverScore;
+    public Text resourceText,timeText,scoreText;
     public Sprite rabbitNormal, rabbitHighlight, bearNormal, bearHighlight;
     public Image rabbitImage, bearImage;
 
@@ -74,14 +75,17 @@ public class gameController : MonoBehaviour {
                 SceneManager.LoadScene("SampleScene");
             }
         }
-	}
+        resourceText.text = "Resources:" + " " + Mathf.RoundToInt(resources) + "%";
+        timeText.text = "Time:" + " " + Mathf.RoundToInt(timeElapsed);
+        scoreText.text = "Score:" + " " + Mathf.RoundToInt(score);
+    }
 
      private void OnGUI()
     {
         if (!gameOver)
         {
-            GUI.Label(new Rect(10, 10, 100, 20), "Time: " + Mathf.RoundToInt(timeElapsed));
-            GUI.Label(new Rect(10, 40, 100, 20), "Score: " + score);
+        //    GUI.Label(new Rect(10, 10, 100, 20), "Time: " + Mathf.RoundToInt(timeElapsed));
+        //    GUI.Label(new Rect(10, 40, 100, 20), "Score: " + score);
 
             //if (rabbitSelected)
             //{

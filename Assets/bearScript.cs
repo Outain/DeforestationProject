@@ -1,11 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class bearScript : MonoBehaviour
 {
     public Transform bearSpot;
     public float sphereRadius;
+    public float maxSpeed;
+    public float minSpeed;
+    public float speedDecay;
+     
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +30,8 @@ public class bearScript : MonoBehaviour
             hitColliders[i].SendMessage("Lockdown");
             i++;
         }
+
+
     }
 
     public void OnTriggerEnter(Collider other)
