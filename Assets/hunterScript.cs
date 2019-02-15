@@ -15,6 +15,8 @@ public class hunterScript : MonoBehaviour
     private float aimCountDownInitial;
     private Vector3 initialTransform;
     private float dist;
+    public Animator anim;
+    public float rotationSpeed = 5;
    
     // Start is called before the first frame update
     void Start()
@@ -39,21 +41,29 @@ public class hunterScript : MonoBehaviour
         }
         if (hunterState ==1 && bear!=null)
         {
+            anim.SetBool("aiming", false);
             agent.SetDestination(bear.transform.position);
            
             if (dist < shootingRange)
             {
                 hunterState = 2;
+                agent.SetDestination(transform.position);
             }
         }
 
         if(hunterState ==2 && bear != null)
         {
-            agent.SetDestination(transform.position);
+            anim.SetBool("aiming",true);
+            Vector3 lookAtPoint = new Vector3(bear.transform.position.x, transform.position.y, bear.transform.position.z);
+            transform.LookAt(lookAtPoint);
+            
             aimCountDown -= Time.deltaTime;
             if (aimCountDown <= 0)
             {
+                anim.SetTrigger("fire");
+                print("fire!");
                 Destroy(bear);
+                anim.SetBool("aiming", false);
                 aimCountDown = aimCountDownInitial;
                 hunterState = 0;
             }
