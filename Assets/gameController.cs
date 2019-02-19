@@ -27,7 +27,7 @@ public class gameController : MonoBehaviour {
     public Image rabbitImage, bearImage;
     public static bool bearInPlay;
 
-    public static int generatorBonus=200;
+    public static int generatorBonus=1000;
 
 	// Use this for initialization
 	void Start () {
@@ -77,14 +77,15 @@ public class gameController : MonoBehaviour {
                 SceneManager.LoadScene("SampleScene");
             }
 
-            if (Input.GetKey("escape"))
-            {
-                Application.Quit();
-            }
+           
         }
         resourceText.text = "Resources:" + " " + Mathf.RoundToInt(resources) + "%";
         timeText.text = "Time:" + " " + Mathf.RoundToInt(timeElapsed);
         scoreText.text = "Score:" + " " + Mathf.RoundToInt(score);
+        if (Input.GetKey("escape"))
+        {
+            Application.Quit();
+        }
     }
 
      private void OnGUI()

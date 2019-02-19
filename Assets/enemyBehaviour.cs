@@ -69,14 +69,24 @@ public class enemyBehaviour : MonoBehaviour {
                 //transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
                 agent.SetDestination(target.position);
             }
+
+            float distance = (target.transform.position - transform.position).sqrMagnitude;
+            if(distance<= 1.5f)
+            {
+                behaviourState = 1;
+            }
         }
 
         if(behaviourState == 1)
         {
             ts.health -= loggingSpeed * Time.deltaTime;
-            if(ts.isAlive == false)
+            Vector3 lookAtPoint = new Vector3(currentTree.transform.position.x, transform.position.y, currentTree.transform.position.z);
+            Vector3 turningPoint = Vector3.Slerp(transform.position, lookAtPoint, Time.deltaTime*0.1f);
+            transform.LookAt(turningPoint);
+            if (ts.isAlive == false)
             {
                 currentTree.tag = "Untagged";
+                nearestTree = null;
                 Destroy(currentTree);
                 gameController.forestPower -= pointsLostPerTree;
                 target = FindTarget();
@@ -160,9 +170,29 @@ public class enemyBehaviour : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
-        rb.angularVelocity = Vector3.zero;
-        rb.velocity = Vector3.zero;
-        if (collision.collider.CompareTag("treetochop")&&behaviourState ==0)
+        //rb.angularVelocity = Vector3.zero;
+        //rb.velocity = Vector3.zero;
+        //if (collision.collider.CompareTag("treetochop")&&behaviourState!=2&&behaviourState!=3&&behaviourState!=4)
+        //{
+        //    behaviourState = 1;
+        //    //collision.collider.gameObject.tag = "Untagged"; // Remove the tag so that FindTarget won't return it
+        //    currentTree = collision.collider.gameObject;
+        //    ts = currentTree.GetComponent<treeScript>();
+        //    //Destroy(collision.collider.gameObject);
+        //    //target = FindTarget();
+        //}
+
+        //else if (collision.collider.CompareTag("generator"))
+        //{
+        //    gs = generator.GetComponent<generatorScript>();
+        //    behaviourState = 3;
+        //}
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+       
+        if (collision.collider.CompareTag("treetochop") && behaviourState != 2 && behaviourState != 3 && behaviourState != 4)
         {
             behaviourState = 1;
             //collision.collider.gameObject.tag = "Untagged"; // Remove the tag so that FindTarget won't return it
@@ -177,10 +207,6 @@ public class enemyBehaviour : MonoBehaviour {
             gs = generator.GetComponent<generatorScript>();
             behaviourState = 3;
         }
-    }
-
-    private void OnCollisionStay(Collision collision)
-    {
         rb.angularVelocity = Vector3.zero;
         rb.velocity = Vector3.zero;
     }
